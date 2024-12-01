@@ -1,0 +1,193 @@
+,country,date,employment
+0,Canada,2023,61.651
+1,Canada,2022,61.568
+2,Canada,2021,60.17
+3,Canada,2020,57.836
+4,Canada,2019,61.971
+5,Canada,2018,61.59
+6,Canada,2017,61.532
+7,Canada,2016,61.084
+8,Canada,2015,61.264
+9,Canada,2014,61.358
+10,Canada,2013,61.715
+11,Canada,2012,61.586
+12,Canada,2011,61.613
+13,Canada,2010,61.437
+14,Canada,2009,61.414
+15,Canada,2008,63.317
+16,Canada,2007,63.286
+17,Canada,2006,62.677
+18,Canada,2005,62.601
+19,Canada,2004,62.637
+20,Canada,2003,62.446
+21,Canada,2002,61.739
+22,Canada,2001,61.151
+23,Canada,2000,61.269
+24,Canada,1999,60.563
+25,Canada,1998,59.737
+26,Canada,1997,58.967
+27,Canada,1996,58.449
+28,Canada,1995,58.669
+29,Canada,1994,58.383
+30,Canada,1993,57.904
+31,Canada,1992,58.342
+32,Canada,1991,59.709
+33,Canada,1990,
+34,Canada,1989,
+35,Canada,1988,
+36,Canada,1987,
+37,Canada,1986,
+38,Canada,1985,
+39,Canada,1984,
+40,Canada,1983,
+41,Canada,1982,
+42,Canada,1981,
+43,Canada,1980,
+44,Canada,1979,
+45,Canada,1978,
+46,Canada,1977,
+47,Canada,1976,
+48,Canada,1975,
+49,Canada,1974,
+50,Canada,1973,
+51,Canada,1972,
+52,Canada,1971,
+53,Canada,1970,
+54,Canada,1969,
+55,Canada,1968,
+56,Canada,1967,
+57,Canada,1966,
+58,Canada,1965,
+59,Canada,1964,
+60,Canada,1963,
+61,Canada,1962,
+62,Canada,1961,
+63,Canada,1960,
+64,Mexico,2023,59.782
+65,Mexico,2022,59.013
+66,Mexico,2021,57.486
+67,Mexico,2020,53.977
+68,Mexico,2019,59.038
+69,Mexico,2018,58.506
+70,Mexico,2017,58.207
+71,Mexico,2016,58.163
+72,Mexico,2015,58.006
+73,Mexico,2014,57.587
+74,Mexico,2013,58.054
+75,Mexico,2012,58.252
+76,Mexico,2011,57.434
+77,Mexico,2010,57.269
+78,Mexico,2009,57.401
+79,Mexico,2008,58.395
+80,Mexico,2007,58.819
+81,Mexico,2006,58.813
+82,Mexico,2005,58.089
+83,Mexico,2004,57.136
+84,Mexico,2003,56.87
+85,Mexico,2002,56.787
+86,Mexico,2001,57.469
+87,Mexico,2000,58.066
+88,Mexico,1999,58.214
+89,Mexico,1998,58.276
+90,Mexico,1997,58.253
+91,Mexico,1996,56.253
+92,Mexico,1995,55.221
+93,Mexico,1994,56.736
+94,Mexico,1993,57.342
+95,Mexico,1992,56.868
+96,Mexico,1991,56.435
+97,Mexico,1990,
+98,Mexico,1989,
+99,Mexico,1988,
+100,Mexico,1987,
+101,Mexico,1986,
+102,Mexico,1985,
+103,Mexico,1984,
+104,Mexico,1983,
+105,Mexico,1982,
+106,Mexico,1981,
+107,Mexico,1980,
+108,Mexico,1979,
+109,Mexico,1978,
+110,Mexico,1977,
+111,Mexico,1976,
+112,Mexico,1975,
+113,Mexico,1974,
+114,Mexico,1973,
+115,Mexico,1972,
+116,Mexico,1971,
+117,Mexico,1970,
+118,Mexico,1969,
+119,Mexico,1968,
+120,Mexico,1967,
+121,Mexico,1966,
+122,Mexico,1965,
+123,Mexico,1964,
+124,Mexico,1963,
+125,Mexico,1962,
+126,Mexico,1961,
+127,Mexico,1960,
+128,United States,2023,59.6
+129,United States,2022,59.266
+130,United States,2021,57.946
+131,United States,2020,56.38
+132,United States,2019,60.329
+133,United States,2018,59.94
+134,United States,2017,59.59
+135,United States,2016,59.181
+136,United States,2015,58.785
+137,United States,2014,58.351
+138,United States,2013,57.845
+139,United States,2012,57.752
+140,United States,2011,57.326
+141,United States,2010,57.369
+142,United States,2009,58.2
+143,United States,2008,61.005
+144,United States,2007,61.752
+145,United States,2006,61.921
+146,United States,2005,61.516
+147,United States,2004,61.164
+148,United States,2003,61.066
+149,United States,2002,61.548
+150,United States,2001,62.519
+151,United States,2000,63.297
+152,United States,1999,63.032
+153,United States,1998,62.777
+154,United States,1997,62.514
+155,United States,1996,61.899
+156,United States,1995,61.613
+157,United States,1994,61.22
+158,United States,1993,60.412
+159,United States,1992,60.119
+160,United States,1991,60.343
+161,United States,1990,
+162,United States,1989,
+163,United States,1988,
+164,United States,1987,
+165,United States,1986,
+166,United States,1985,
+167,United States,1984,
+168,United States,1983,
+169,United States,1982,
+170,United States,1981,
+171,United States,1980,
+172,United States,1979,
+173,United States,1978,
+174,United States,1977,
+175,United States,1976,
+176,United States,1975,
+177,United States,1974,
+178,United States,1973,
+179,United States,1972,
+180,United States,1971,
+181,United States,1970,
+182,United States,1969,
+183,United States,1968,
+184,United States,1967,
+185,United States,1966,
+186,United States,1965,
+187,United States,1964,
+188,United States,1963,
+189,United States,1962,
+190,United States,1961,
+191,United States,1960,
