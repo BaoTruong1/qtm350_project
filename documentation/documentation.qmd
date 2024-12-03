@@ -1,0 +1,25 @@
+---
+title: "QTM 350 Final Project"
+author: "Bao Truong, Daolong Yang, Xipu Wang"
+date: "2024-11-29"
+date-format: "MMMM D, YYYY"
+format:
+   pdf:
+     fig-width: 3
+     fig-height: 2
+     margins: 2in
+---
+
+# Introduction
+This is the final project for QTM 350 class. Our group chooses to work on the topic of economic development. In this project, we will try to identify the relationship between GDP per Capita, GDP Growth, and Employment Ratio. We will analyze the trend to draw a meaningful insights to apply for other countries.
+
+# Data description
+This project leverages World Bank data to explore and analyze the economic development trends in the North America region. The analysis focuses on three key economic indicators:
+1. GDP per Capita: Measures the average economic output per person in the region.
+2. GDP Growth: Tracks the annual percentage growth in the region's economic output.
+3. Employment Ratio: Reflects the proportion of the working-age population that is employed.
+These variables provide a comprehensive overview of the region's economic health and development trajectory.
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
