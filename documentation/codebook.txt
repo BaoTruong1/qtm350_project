@@ -1,0 +1,46 @@
+# Codebook for Data Science Project
+
+## Overview
+This codebook describes the structure, variables, and data sources for the four tables in this data science project: PPP (Purchasing Power Parity), Employment Ratio, GDP Growth, and Date Information.
+
+---
+
+## Tables
+
+### PPP Table
+| Column            | Description                                      |
+|-------------------|--------------------------------------------------|
+| `Date`            | Date of observation in `YYYY` format.     |
+| `Country`         | Name of the country.                            |
+| `PPP`             | Purchasing Power Parity value.                  |
+
+### Employment Ratio Table
+| Column            | Description                                      |
+|-------------------|--------------------------------------------------|
+| `Date`            | Date of observation in `YYYY` format.     |
+| `Country`         | Name of the country.                            |
+| `Employment_Ratio`| Employment ratio value (percentage).            |
+
+### GDP Growth Table
+| Column            | Description                                      |
+|-------------------|--------------------------------------------------|
+| `Date`            | Date of observation in `YYYY` format.     |
+| `Country`         | Name of the country.                            |
+| `GDP_Growth`      | GDP growth rate (percentage).                   |
+
+
+---
+
+## Notes
+- All tables share the `Date` and `Country` columns to facilitate merging and analysis.
+- Missing values are represented as `NULL` or `NaN` depending on the file format.
+- Units and scales:
+  - PPP: Indexed to a base year.
+  - Employment Ratio: Expressed as a percentage.
+  - GDP Growth: Expressed as a percentage.
+
+## Data Sources
+Data was obtained from the following sources:
+- PPP: World Bank database
+- Employment Ratio: International Labor Organization (ILO)
+- GDP Growth: World Bank database

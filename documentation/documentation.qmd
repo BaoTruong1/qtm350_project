@@ -8,17 +8,85 @@ format:
      fig-width: 3
      fig-height: 2
      margins: 2in
+
 ---
 
 # Introduction
-This is the final project for QTM 350 class. Our group chooses to work on the topic of economic development. In this project, we will try to identify the relationship between GDP per Capita, GDP Growth, and Employment Ratio. We will analyze the trend to draw a meaningful insights to apply for other countries.
+This is the final project for QTM 350 class. Our group chooses to work on the topic of economic development. In this project, we will try to identify the relationship between GDP(adjusted), GDP Growth, and Employment Ratio. We will analyze the trend to draw a meaningful insights to apply for other countries. Our research question is: "What is the correlation between GDP(adjusted), Employment Ratio, and GDP Growth. Does having higher GDP(adjusted) and higher Employment Ratio leads to a faster increase in GDP".
 
 # Data description
 This project leverages World Bank data to explore and analyze the economic development trends in the North America region. The analysis focuses on three key economic indicators:
-1. GDP per Capita: Measures the average economic output per person in the region.
+
+1. PPP: Measures the average economic output per person in the region adjusted for inflation.
+
 2. GDP Growth: Tracks the annual percentage growth in the region's economic output.
+
 3. Employment Ratio: Reflects the proportion of the working-age population that is employed.
 These variables provide a comprehensive overview of the region's economic health and development trajectory.
+
+We clean the data using SQL. We try to filter out every country that's not USA, Canada, or Mexico. In addition, we drop the row in every dataset that we filter that has a null value in variable columns. Then, we also transform the column 'ppp' in the dataset PPP to 'log_ppp'.
+We then merge Employment Ratio and GDP Growth to visualize the residual to check for the condition of our model. We do similarly with PPP and GDP Growth.
+```{python}
+#| echo: false
+#| eval: true
+import pandas as pd
+import numpy as np
+import psycopg2
+from sqlalchemy import create_engine, text
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+employment = pd.read_csv("../data/cleaned_employment.csv")
+growth = pd.read_csv("../data/cleaned_growth.csv")
+gdp_adjusted = pd.read_csv("../data/cleaned_ppp.csv")
+gdp_adjusted["log_ppp"] = np.log(gdp_adjusted["ppp"])
+
+countries = employment['country'].unique()
+for country in countries:
+    country_data = employment[employment['country'] == country]
+    plt.scatter(country_data['date'], country_data['employment'], label = f'{country} Data Points')
+    plt.title(f'Scatter Plot: Employment vs. Year ({country})')
+    plt.xlabel('Year')
+    plt.ylabel('Employment')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+```
+
+# Data analysis
+We create a residual plot to check for the requirements of linear regression model.
+```{python}
+#| echo: false
+#| eval: true
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.linear_model import LinearRegression
+employment = pd.read_csv("../data/cleaned_employment.csv")
+growth = pd.read_csv("../data/cleaned_growth.csv")
+gdp_adjusted = pd.read_csv("../data/cleaned_ppp.csv")
+gdp_adjusted["log_ppp"] = np.log(gdp_adjusted["ppp"])
+
+# Merge employment and growth dataframes on 'country' and 'date'
+merged_data1 = pd.merge(employment, growth, on=['country', 'date'])
+
+# Fit the linear regression model
+model = LinearRegression()
+model.fit(merged_data1["employment"].values.reshape(-1, 1), merged_data1["gdp_growth"])
+y_pred = model.predict(merged_data1["employment"].values.reshape(-1, 1))
+
+# Calculate residuals
+residuals = merged_data1["gdp_growth"] - y_pred
+
+# Create a residual plot
+plt.scatter(merged_data1["employment"], residuals)
+plt.axhline(y=0, color='red', linestyle='--', linewidth=1)  # Reference line at y=0
+plt.xlabel('Employment Ratio')
+plt.ylabel('Residuals')
+plt.title('Residual Plot')
+plt.show()
+```
+
+From both of the plots above, we see that the requirement for the linear regression is met. Therefore, we will conduct a linear regression to find out the correlation of the variables.
 
 ## Quarto
 
