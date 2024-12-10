@@ -1,6 +1,6 @@
 ---
 title: "QTM 350 Final Project"
-author: "Bao Truong (2643551), Daolong Yang, Xipu Wang"
+author: "Bao Truong (2643551), Daolong Yang(2485580), Xipu Wang(2551008)"
 date: "2024-11-29"
 date-format: "MMMM D, YYYY"
 format:
