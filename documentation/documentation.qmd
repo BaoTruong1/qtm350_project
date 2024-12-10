@@ -1,6 +1,6 @@
 ---
 title: "QTM 350 Final Project"
-author: "Bao Truong, Daolong Yang, Xipu Wang"
+author: "Bao Truong (2643551), Daolong Yang, Xipu Wang"
 date: "2024-11-29"
 date-format: "MMMM D, YYYY"
 format:
@@ -12,20 +12,27 @@ format:
 ---
 
 # Introduction
-This is the final project for QTM 350 class. Our group chooses to work on the topic of economic development. In this project, we will try to identify the relationship between GDP(adjusted), GDP Growth, and Employment Ratio. We will analyze the trend to draw a meaningful insights to apply for other countries. Our research question is: "What is the correlation between GDP(adjusted), Employment Ratio, and GDP Growth. Does having higher GDP(adjusted) and higher Employment Ratio leads to a faster increase in GDP".
+This is the final project for QTM 350 class. Our group chooses to work on the topic of economic development. In this project, we will try to identify the relationship between PPP(Power Purchase Parity), GDP Growth, and Employment Ratio. We will analyze the trend to draw a meaningful insights to apply for other countries. Our research question is: "What is the correlation between PPP, Employment Ratio, and GDP Growth. Does having higher PPP and higher Employment Ratio leads to a higher increase in GDP". 
+
+The finding yields the result that Employment ratio has a positive correlation with GDP growth whereas the PPP has a negative correlation with GDP growth.
 
 # Data description
 This project leverages World Bank data to explore and analyze the economic development trends in the North America region. The analysis focuses on three key economic indicators:
 
-1. PPP: Measures the average economic output per person in the region adjusted for inflation.
+1. ppp: Measures the average economic output per person in the region adjusted for inflation.
 
-2. GDP Growth: Tracks the annual percentage growth in the region's economic output.
+2. gdp_growh: Tracks the annual percentage growth in the region's economic output.
 
-3. Employment Ratio: Reflects the proportion of the working-age population that is employed.
+3. employment: Reflects the proportion of the working-age population that is employed.
 These variables provide a comprehensive overview of the region's economic health and development trajectory.
 
-We clean the data using SQL. We try to filter out every country that's not USA, Canada, or Mexico. In addition, we drop the row in every dataset that we filter that has a null value in variable columns. Then, we also transform the column 'ppp' in the dataset PPP to 'log_ppp'.
-We then merge Employment Ratio and GDP Growth to visualize the residual to check for the condition of our model. We do similarly with PPP and GDP Growth.
+To obtain this data, we use wbdata to get 3 datasets from the World Bank: ppp, gdp_growth, and employment with each dataset includes columns with name of the country, date, and the respective variables. We clean the data using SQL. We try to filter out every country that's not United States, Canada, or Mexico. In addition, we drop the row in every dataset that we filter that has a null value in variable columns.We export the cleaned datasets into the data folder and name PPP for ppp, Growth for gdp_growth, and Employment for employment. Then, utilizing SQL, we draw a table of summary statistics of 3 countries in 3 variables: ppp, gdp_growth, and employment
+We then merge Employment Ratio, PPP, and GDP Growth on 'country' and 'date column'. We change the ppp variable into log_ppp to make our model more stable.
+
+# Data analysis
+
+## Data visualization
+
 ```{python}
 #| echo: false
 #| eval: true
@@ -35,50 +42,66 @@ import psycopg2
 from sqlalchemy import create_engine, text
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
-employment = pd.read_csv("../data/cleaned_employment.csv")
-growth = pd.read_csv("../data/cleaned_growth.csv")
-gdp_adjusted = pd.read_csv("../data/cleaned_ppp.csv")
-gdp_adjusted["log_ppp"] = np.log(gdp_adjusted["ppp"])
-
+import seaborn as sns
+import wbdata
+import statsmodels.api as sm
+employment = pd.read_csv("../data/Employment.csv")
+growth = pd.read_csv("../data/Growth.csv")
+ppp = pd.read_csv("../data/PPP.csv")
+df = growth.merge(employment, on=['country','date'], how='inner')
+df = df.merge(ppp, on=['country','date'], how='inner')
+df['log_ppp'] = np.log(df['ppp'])
 countries = employment['country'].unique()
-for country in countries:
-    country_data = employment[employment['country'] == country]
-    plt.scatter(country_data['date'], country_data['employment'], label = f'{country} Data Points')
-    plt.title(f'Scatter Plot: Employment vs. Year ({country})')
-    plt.xlabel('Year')
-    plt.ylabel('Employment')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
+# Trend of Employment Over Time by Country
+sns.lineplot(data=df, x='date', y='employment', hue='country', marker='o')
+plt.title('Employment Ratio Over Time by Country')
+plt.ylabel('Employment-to-Population Ratio (%)')
+plt.show()
+
+# Trend of PPP Over Time by Country
+sns.lineplot(data=df, x='date', y='log_ppp', hue='country', marker='o')
+plt.title('PPP Indicator Over Time by Country')
+plt.ylabel('PPP Indicator')
+plt.show()
+
+# Trend of GDP Growth Over Time by Country
+sns.lineplot(data=df, x='date', y='gdp_growth', hue='country', marker='o')
+plt.title('GDP Growth Over Time by Country')
+plt.ylabel('GDP Growth')
+plt.show()
 ```
 
-# Data analysis
-We create a residual plot to check for the requirements of linear regression model.
+These summary statistics give us a comparative snapshot of three key North American economies—Canada, Mexico, and the United States—across several indicators: GDP growth, PPP (purchasing power parity), log GDP per capita, and employment.
+
+GDP Growth:
+All three countries have similar mean GDP growth rates, with the U.S. leading slightly at about 2.47%, followed by Canada at 2.19%, and Mexico at 2.17%. However, Mexico’s growth is notably more volatile, as indicated by a higher standard deviation (3.50) and more extreme minimum (-8.62%) and maximum (7.20%) values. Canada and the United States have smaller standard deviations and narrower ranges, suggesting more stable year-to-year growth. But we see a large change on the plot around 2010, 2020. This is caused by the 2008 financial crisis and COVID-19 pandemic in 2020, which are factors that have heavily affected other variables as well.
+
+PPP:
+The U.S. has the highest average PPP value (around 58,707), followed by Canada, then Mexico, reflecting a clear hierarchy in terms of wealth and price levels. Canada's PPP averages around 49,780, while Mexico’s is significantly lower at around 20,519. 
+
+Employment:
+In terms of labor market outcomes, both Canada and the United States show higher average employment-to-population ratios (around 60-61%) compared to Mexico’s average of about 57.6%. While all three countries maintain relatively stable employment rates, the smaller standard deviation for Mexico (1.14) suggests that its employment ratio is more consistently clustered around its mean, albeit at a lower level.
+
+Overall Picture:
+In summary, the U.S. stands out as the wealthiest with the highest PPP and log GDP per capita and stable, moderately strong growth. Canada shares these characteristics to a somewhat lesser extent, while Mexico’s economic indicators point to lower average wealth and more volatile growth rates. Although all three countries are economically developed, these statistics underline important differences in stability, living standards, and labor market conditions.
+
+We then create a residual plot to check for the requirements of linear regression model.
+
+## Residual plots
+
 ```{python}
 #| echo: false
 #| eval: true
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
-from sklearn.linear_model import LinearRegression
-employment = pd.read_csv("../data/cleaned_employment.csv")
-growth = pd.read_csv("../data/cleaned_growth.csv")
-gdp_adjusted = pd.read_csv("../data/cleaned_ppp.csv")
-gdp_adjusted["log_ppp"] = np.log(gdp_adjusted["ppp"])
-
-# Merge employment and growth dataframes on 'country' and 'date'
-merged_data1 = pd.merge(employment, growth, on=['country', 'date'])
-
 # Fit the linear regression model
 model = LinearRegression()
-model.fit(merged_data1["employment"].values.reshape(-1, 1), merged_data1["gdp_growth"])
-y_pred = model.predict(merged_data1["employment"].values.reshape(-1, 1))
+model.fit(df["employment"].values.reshape(-1, 1), df["gdp_growth"])
+y_pred = model.predict(df["employment"].values.reshape(-1, 1))
 
 # Calculate residuals
-residuals = merged_data1["gdp_growth"] - y_pred
+residuals = df["gdp_growth"] - y_pred
 
 # Create a residual plot
-plt.scatter(merged_data1["employment"], residuals)
+plt.scatter(df["employment"], residuals)
 plt.axhline(y=0, color='red', linestyle='--', linewidth=1)  # Reference line at y=0
 plt.xlabel('Employment Ratio')
 plt.ylabel('Residuals')
@@ -86,8 +109,76 @@ plt.title('Residual Plot')
 plt.show()
 ```
 
-From both of the plots above, we see that the requirement for the linear regression is met. Therefore, we will conduct a linear regression to find out the correlation of the variables.
+```{python}
+#| echo: false
+#| eval: true
+# Fit the linear regression model
+model = LinearRegression()
+model.fit(df["log_ppp"].values.reshape(-1, 1), df["gdp_growth"])
+y_pred = model.predict(df["log_ppp"].values.reshape(-1, 1))
 
-## Quarto
+# Calculate residuals
+residuals = df["gdp_growth"] - y_pred
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+# Create a residual plot
+plt.scatter(df["log_ppp"], residuals)
+plt.axhline(y=0, color='red', linestyle='--', linewidth=1)  # Reference line at y=0
+plt.xlabel('Log of PPP')
+plt.ylabel('Residuals')
+plt.title('Residual Plot')
+plt.show()
+```
+
+There seems to be no clear pattern in the residual plots of Employment Ratio and Log of PPP. Therefore, the assumption for a linear regression model is met. We will use multiple linear regression with input outcome as log_ppp and employment ratio and the output outcome is gdp_growth.
+
+## Model
+
+```{python}
+#| echo: false
+#| eval: true
+# Predict gdp_growth using log GDP, employment ratio, and PPP
+model_data = df.dropna(subset=['gdp_growth','employment', 'log_ppp'])
+X = model_data[['employment', 'log_ppp']]
+y = model_data['gdp_growth']
+
+X = sm.add_constant(X)
+model = sm.OLS(y, X).fit()
+print(model.summary())
+```
+
+This regression model suggests that while the overall relationship between GDP growth and the two predictors—log PPP, employment ratio is statistically significant at the model level (F-test p-value ≈ 0.012), the explanatory power is quite low. With an R-squared of only about 0.089, the model explains less than 10% of the variation in GDP growth.
+
+Looking at individual predictors, only the employment variable shows a statistically significant positive effect on GDP growth (p < 0.01). Variation in employment is somewhat associated with changes in GDP growth, whereas purchasing power (PPP) appears to have a negative influence on GDP growth but is statistically insignificant.
+
+In summary, the model only modestly explains the variation in GDP growth, with employment showing some predictive power, but the presence of multicollinearity and non-normal residuals highlights the need for more careful modeling or additional variables.
+
+```{python}
+#| echo: false
+#| eval: true
+df = df.sort_values(by=['country', 'date'])
+df['lag_ppp'] = df.groupby('country')['log_ppp'].shift(1)
+
+lag_model_data = df.dropna(subset=['gdp_growth','lag_ppp','employment'])
+X_lag = lag_model_data[[ 'employment', 'lag_ppp']]
+y_lag = lag_model_data['gdp_growth']
+
+X_lag = sm.add_constant(X_lag)
+lag_model = sm.OLS(y_lag, X_lag).fit()
+print(lag_model.summary())
+```
+
+To improve our model, we decide to use the log_ppp from last year as an input outcome instead of using the log_ppp for this year. This is because we believe that the log_ppp will affect the GDP growth next year.
+
+# Results and Discussions
+
+This revised model (that uses PPP of last year instead of this year) explains slightly more variation in GDP growth than the previous one (R-squared of about 0.122, up from 0.088), indicating that around 12% of the variation in GDP growth is accounted for by the included variables: lagged PPP, and employment. The overall model is statistically significant (p ≈ 0.0023), suggesting that the combination of predictors is not random noise.
+
+Looking at the individual coefficients, employment is again the clearest and most statistically significant predictor. Its positive and significant coefficient (p < 0.001). On the other hand, the lag_ppp is also statistically significant (p = 0.023) but with a large negative magnitude.
+
+The large condition number (1.77e+03) indicates potential multicollinearity or numerical instability. This might mean that the predictors are highly correlated with each other, making it difficult to isolate their individual effects. Thus the result should be intepreted with caution.
+
+# Conclusions
+
+In conclusion, our analysis demonstrates that using the lagged PPP (Purchasing Power Parity) as an input variable provides a better explanation of the variation in GDP growth compared to using the current year's PPP. The revised model, which includes lagged PPP and employment as predictors, accounts for approximately 12% of the variation in GDP growth, as indicated by the R-squared value of 0.122. This is an improvement from the previous model's R-squared value of 0.088.
+
+We can see that there is a strong positive correlation between Employment ratio and GDP growth. This can be the result of a country having a good economy tends to have higher GDP growth and more jobs for people. However, there is also a negative correlation between PPP and GDP growth. This might be intepreted as developed countries with higher PPP often have lower GDP growth.

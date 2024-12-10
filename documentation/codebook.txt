@@ -10,23 +10,23 @@ This codebook describes the structure, variables, and data sources for the four 
 ### PPP Table
 | Column            | Description                                      |
 |-------------------|--------------------------------------------------|
-| `Date`            | Date of observation in `YYYY` format.     |
-| `Country`         | Name of the country.                            |
-| `PPP`             | Purchasing Power Parity value.                  |
+| `date`            | Date of observation in `YYYY` format.     |
+| `country`         | Name of the country.                            |
+| `ppp`             | Purchasing Power Parity value.                  |
 
-### Employment Ratio Table
+### Employment Table
 | Column            | Description                                      |
 |-------------------|--------------------------------------------------|
-| `Date`            | Date of observation in `YYYY` format.     |
-| `Country`         | Name of the country.                            |
-| `Employment_Ratio`| Employment ratio value (percentage).            |
+| `date`            | Date of observation in `YYYY` format.     |
+| `country`         | Name of the country.                            |
+| `employment`| Employment ratio value (percentage).            |
 
-### GDP Growth Table
+### Growth Table
 | Column            | Description                                      |
 |-------------------|--------------------------------------------------|
-| `Date`            | Date of observation in `YYYY` format.     |
-| `Country`         | Name of the country.                            |
-| `GDP_Growth`      | GDP growth rate (percentage).                   |
+| `date`            | Date of observation in `YYYY` format.     |
+| `country`         | Name of the country.                            |
+| `gdp_growth`      | GDP growth rate (percentage).                   |
 
 
 ---
@@ -42,5 +42,5 @@ This codebook describes the structure, variables, and data sources for the four 
 ## Data Sources
 Data was obtained from the following sources:
 - PPP: World Bank database
-- Employment Ratio: International Labor Organization (ILO)
-- GDP Growth: World Bank database
+- Employment: World Bank database
+- Growth: World Bank database
