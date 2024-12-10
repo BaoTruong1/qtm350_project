@@ -12,7 +12,7 @@ format:
 ---
 
 # Introduction
-This is the final project for QTM 350 class. Our group chooses to work on the topic of economic development. In this project, we will try to identify the relationship between PPP(Power Purchase Parity), GDP Growth, and Employment Ratio. We will analyze the trend to draw a meaningful insights to apply for other countries. Our research question is: "What is the correlation between PPP, Employment Ratio, and GDP Growth. Does having higher PPP and higher Employment Ratio leads to a higher increase in GDP". 
+This is the final project for QTM 350 class. Our group chooses to work on the topic of economic development. In this project, we will try to identify the relationship between PPP(Power Purchase Parity), GDP Growth, and Employment Ratio. We will analyze the trend to draw a meaningful insights to apply for other countries. Our research question is: "What is the correlation between PPP, Employment Ratio, and GDP Growth. Does having higher PPP and higher Employment Ratio correlates a higher increase in GDP". 
 
 The finding yields the result that Employment ratio has a positive correlation with GDP growth whereas the PPP has a negative correlation with GDP growth.
 
